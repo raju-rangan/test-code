@@ -1,13 +1,12 @@
 # Mathematical Equation Extractor
 
-This tool extracts mathematical equations from Microsoft Word documents (.docx and .doc files).
+This tool extracts mathematical equations from Microsoft Word documents (.docx files).
 
 ## Features
 
 - Extracts equations from .docx files using multiple methods:
   - Direct XML parsing of Office Math Markup Language (OMML) elements
   - Identification of equation objects in the document structure
-  - Pattern matching for LaTeX-style equation formats
 - Options for raw XML output or cleaned text extraction
 - Outputs equations to console or a specified file
 - Detailed logging for troubleshooting
@@ -41,7 +40,7 @@ python extract_equations.py path/to/document.docx -r
 
 ### Command-line Arguments
 
-- `file_path`: Path to the Word document (required)
+- `file_path`: Path to the .docx document (required)
 - `-o, --output`: Output file path (optional, default: print to console)
 - `-v, --verbose`: Enable verbose output (optional)
 - `-r, --raw`: Return raw XML without cleaning (optional)
@@ -63,9 +62,9 @@ The script uses multiple approaches to extract equations:
 
 ## Limitations
 
-- For .doc files (older Word format), direct processing is not implemented. Convert to .docx first using LibreOffice/OpenOffice.
-- Complex equations or those using custom fonts may not be extracted correctly.
-- The script primarily identifies equations based on common patterns and markup; some custom or unusual equation formats might be missed.
+- Only supports .docx format (newer Word format)
+- Complex equations or those using custom fonts may not be extracted correctly
+- The script primarily identifies equations based on common patterns and markup; some custom or unusual equation formats might be missed
 
 ## Requirements
 

@@ -2,9 +2,7 @@
 """
 Extract Mathematical Equations from Word Documents
 
-This script extracts mathematical equations from Microsoft Word documents.
-It handles both DOCX and DOC formats and attempts to identify and extract
-equations embedded in the document.
+This script extracts mathematical equations from Microsoft Word documents (.docx files).
 """
 
 import os
@@ -61,7 +59,7 @@ def extract_equations_docx(file_path, raw_xml=False):
         logger.error(f"Error processing DOCX file: {e}")
         return []
 
-def extract_from_docx_xml(file_path, raw_xml=True):
+def extract_from_docx_xml(file_path, raw_xml=False):
     """
     Extract equations by directly parsing the DOCX XML content
     
@@ -128,37 +126,10 @@ def extract_from_docx_xml(file_path, raw_xml=True):
         logger.error(f"Error in XML extraction: {e}")
         return []
 
-def extract_equations_doc(file_path):
-    """
-    Extract equations from a .doc file by first converting it to .docx
-    
-    Args:
-        file_path (str): Path to the .doc file
-        
-    Returns:
-        list: List of extracted equations
-    """
-    logger.info(f"Processing DOC file: {file_path}")
-    logger.warning("DOC format has limited support. Converting to DOCX first.")
-    
-    try:
-        # For .doc files, we need to use an external library or tool
-        # This is a placeholder - in a real implementation, you might use
-        # a library like pywin32 (on Windows) or an external converter
-        
-        # For now, we'll suggest using LibreOffice/OpenOffice to convert to .docx first
-        logger.error("Direct .doc processing not implemented.")
-        logger.info("Please convert your .doc file to .docx format first using LibreOffice/OpenOffice.")
-        return []
-    
-    except Exception as e:
-        logger.error(f"Error processing DOC file: {e}")
-        return []
-
 def main():
     """Main function to parse arguments and extract equations"""
     parser = argparse.ArgumentParser(description='Extract mathematical equations from Word documents')
-    parser.add_argument('file_path', help='Path to the Word document')
+    parser.add_argument('file_path', help='Path to the .docx file')
     parser.add_argument('-o', '--output', help='Output file path (default: print to console)')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose output')
     parser.add_argument('-r', '--raw', action='store_true', help='Return raw XML without cleaning')
@@ -181,10 +152,8 @@ def main():
     
     if ext == '.docx':
         equations = extract_equations_docx(file_path, raw_xml)
-    elif ext == '.doc':
-        equations = extract_equations_doc(file_path)
     else:
-        logger.error(f"Unsupported file format: {ext}. Please provide a .doc or .docx file.")
+        logger.error(f"Unsupported file format: {ext}. Please provide a .docx file.")
         sys.exit(1)
     
     # Output results
